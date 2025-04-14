@@ -1,22 +1,19 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Recommendations from '../recommendations/recommendations';
 import Reviews from '../reviews/reviews';
 import { Rating } from 'primereact/rating';
-// import 'primereact/resources/themes/lara-light-indigo/theme.css';
-
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import styles from "./MovieDetails.module.css"
-
-
-
+import styles from "./MovieDetails.module.css";
 
 const MovieDetails = ({ movieId }) => {
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
+    axios
+      .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
       .then(result => setMovie(result.data))
       .catch(error => console.error("error", error));
   }, [movieId]);
@@ -24,68 +21,60 @@ const MovieDetails = ({ movieId }) => {
   return (
     <div className={styles.container}>
       {movie && (
-        <div className={styles.card}>
-          <div className={styles.imgContainer} >
-           <img className={styles.movieImage}  src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title}  />
+        <div className={styles.wrapper}>
+          <div className={styles.left}>
+            <img
+              className={styles.poster}
+              src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+              alt={movie.title}
+            />
           </div>
-          <div className={styles.cardDetails}>
-            <h1 className={styles.h1}>{movie.title}</h1>
-            <span className={styles.span}> {new Date(movie.release_date).toLocaleDateString()}</span>
+          <div className={styles.right}>
+            <h1 className={styles.title}>{movie.title}</h1>
+            <p className={styles.date}>{new Date(movie.release_date).toLocaleDateString()}</p>
 
-
-            <p className= {styles.ratingStar}>
-            <Rating value={movie.vote_average/2} readOnly cancel={false} />
-          </p>
-
-            <p className={styles.overView}>{movie.overview}</p>
-
-            <div className={styles.genresContainer}>
-            {movie.genres.map((genre)=> (
-              <div key={genre.id} className={styles.genreItem}>
-                {genre.name}
-              </div>
-            ))}
-          </div>
-
-            <div className={styles.detailsFooter}>
-              <p ><strong>Duration:</strong>{movie.runtime} min</p>
-              <p><strong>Language:</strong> {movie.original_language}</p>
-            </div>
+            <div className={styles.rating}>
+              <Rating value={movie.vote_average / 2} readOnly cancel={false} stars={5} />
+              <span className={styles.vote}>{movie.vote_average.toFixed(1)}</span>
             </div>
 
-            <div className={styles.studio}>
-            {movie.production_companies && movie.production_companies.length > 0 && (
-            <div>
-              <div className={styles.productionCompanies}>
-                {movie.production_companies.map((company) => (
-                  <div key={company.id} className={styles.companyItem}>
-                    {company.logo_path && (
-                      <img 
-                        src={`https://image.tmdb.org/t/p/w200/${company.logo_path}`} 
-                        alt={company.name} 
-                        className={styles.companyLogo} 
-                      />
-                    )}
+            <p className={styles.overview}>{movie.overview}</p>
+
+            <div className={styles.genres}>
+              {movie.genres.map((genre) => (
+                <span key={genre.id} className={styles.genreItem}>
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+
+            <div className={styles.details}>
+              <p><strong>Duration:</strong> {movie.runtime} min</p>
+              <p><strong>Language:</strong> {movie.original_language.toUpperCase()}</p>
+            </div>
+
+            <div className={styles.production}>
+              {movie.production_companies.map(company => (
+                company.logo_path && (
+                  <div key={company.id} className={styles.company}>
+                    <img
+                      src={`https://image.tmdb.org/t/p/w200/${company.logo_path}`}
+                      alt={company.name}
+                    />
                     <p>{company.name}</p>
                   </div>
-                ))}
-              </div>
+                )
+              ))}
             </div>
-            
-            )}
-            </div>
-            
-         
+          </div>
         </div>
       )}
 
-    <Reviews movieId={movieId} />
-    <Recommendations movieId={movieId} />
-
+      <Reviews movieId={movieId} />
+      <Recommendations movieId={movieId} />
     </div>
-
-    
   );
 };
 
 export default MovieDetails;
+
