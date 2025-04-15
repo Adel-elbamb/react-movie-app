@@ -31,7 +31,7 @@ const Reviews = ({ movieId }) => {
             </div>
           </div>
           <div className={styles.content}>
-            <p>{review.content}</p>
+            <p>{review.content.split(" ").slice(0 , 40).join(" ")}</p>
           </div>
         </div>
       ))}
