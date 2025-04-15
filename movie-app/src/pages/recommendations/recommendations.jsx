@@ -43,7 +43,7 @@ const Recommendations = ({ movieId }) => {
                 </div>
               </div>
               <Card.Body>
-                <Card.Title className="fs-6">{movie.title}</Card.Title>
+                <Card.Title className="fs-6">{movie.title.split(" ").slice(0,3).join(" ")}</Card.Title>
                 <Card.Text className="text-muted">
                   {new Date(movie.release_date).toLocaleDateString('en-US', {
                     month: 'short',
