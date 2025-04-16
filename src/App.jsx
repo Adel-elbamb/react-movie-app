@@ -1,14 +1,20 @@
-import { useState } from 'react'
-import Movies_List from './componatents/movie_list'
+// src/App.jsx
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+import React from 'react';
+import MovieDetails from './pages/MovieDetails/MovieDetails';
+
+const App = () => {
+  const movieId =497698
+  // const movieId =100
+
+  ;
 
   return (
-  <>
-  <Movies_List/>
-  </>
-  )
-}
+    <div className="App">
+      <MovieDetails movieId={movieId} />
+    </div>
+  );
+};
 
-export default App
+export default App;

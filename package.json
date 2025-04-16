@@ -1,5 +1,5 @@
 {
-  "name": "move",
+  "name": "movie-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,14 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
+    "primeicons": "^7.0.0",
+    "primereact": "^10.9.4",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0",
-    "react-redux": "^9.2.0",
-    "redux": "^5.0.1"
+    "react-circular-progressbar": "^2.2.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
