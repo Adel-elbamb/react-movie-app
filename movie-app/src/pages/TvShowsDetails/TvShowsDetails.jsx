@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
 import styles from './TvShowsDetails.module.css';
 
+import TVShowReviews from '../TvShowsReviews/TvShowReviews'; // أو المسار الصحيح حسب مكان الملف
+
+
 const TVShowDetails = () => {
   const { id } = useParams(); 
   const [tvShow, setTvShow] = useState(null);
@@ -64,6 +67,9 @@ const TVShowDetails = () => {
 
         </div>
       )}
+
+      <TVShowReviews />
+
     </div>
   );
 };
