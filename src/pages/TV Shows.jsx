@@ -36,14 +36,13 @@ export default function TVShows() {
       })
       .then((res) => {
         setTVShows(res.data.results);
-        console.log(res.data.results);
         setTotalPages(res.data.total_pages);
       })
       .catch((err) => console.log(err));
   }, [page]);
 
   const handleViewDetails = (id) => {
-    navigate(`/tvShowDetails/${id}`);
+    navigate(`/tv/${id}`);
   };
 
   const handleSearch = (e) => {
@@ -73,7 +72,7 @@ export default function TVShows() {
           Search
         </button>
       </form>
-      <Row xs={1} md={4} lg={5} className="g-4">
+      <Row xs={1} md={3} lg={6} className="g-4">
         {tvShows.map((show) => (
           <Col key={show.id} className="mb-4">
             <Card className={`${styles.movieCard} shadow-sm h-100`}>
@@ -132,8 +131,8 @@ export default function TVShows() {
             </Card>
           </Col>
         ))}
-        <Container>
-          <ul className="pagination m-auto my-5">
+        <Container className="w-100 d-flex justify-content-center my-5">
+          <ul className="pagination ">
             <li className="page-item">
               <a
                 className="page-link"
