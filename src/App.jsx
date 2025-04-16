@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import NavbarComponent from "./components/Navbar";
-import MovieList from "./pages/MovieList";
-import SearchResults from "./pages/SearchResults";
-import TvShowsComponent from './pages/TvList'
+import Navbar from "./components/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
+import SearchResult from "./pages/searchPage/SearchResults";
+
 function App() {
   const { language } = useSelector((state) => state.languages);
   const direction = language === "ar" ? "rtl" : "ltr";
@@ -11,11 +11,9 @@ function App() {
   return (
     <div className={direction === "rtl" ? "rtl" : "ltr"}>
       <Router>
-        <NavbarComponent />
+        <Navbar />
         <Routes>
-          <Route path="/search" element={<SearchResults />} /> 
-          <Route path="/movie" element={<MovieList/>} />
-          <Route path="/tv" element={<TvShowsComponent />} />
+          <Route path="/search" element={<SearchResult/>} /> 
           <Route path="*" element={<h2>404 - Page Not Found</h2>} />
         </Routes>
       </Router>
