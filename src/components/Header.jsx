@@ -8,8 +8,11 @@ import Badge from "react-bootstrap/Badge";
 import { useSelector } from "react-redux";
 
 export default function Header() {
-  const tvWatchList = useSelector((state) => state.tvShowsList);
-  console.log(tvWatchList.length);
+  // const tvWatchList = useSelector((state) => state.tvShowsList);
+  // console.log(tvWatchList.length);
+  const Wishlist = useSelector((state) =>
+    state.wishlist.value.filter((item) => item.type == "show")
+  );
   return (
     <Navbar expand="lg" className={`${Styles.bg} sticky-top`}>
       <Container>
@@ -28,7 +31,7 @@ export default function Header() {
           </Nav>
           <Nav.Link as={Link} to="/tvShowsWishList">
             <Badge className="mx-2" bg="danger">
-              TV WatchList <Badge bg="danger">{tvWatchList.length}</Badge>
+              TV WatchList <Badge bg="danger">{Wishlist.length}</Badge>
             </Badge>
           </Nav.Link>
         </Navbar.Collapse>
