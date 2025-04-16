@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addToWishlist, removeFromWishlist } from '../../store/actions/wishlistActions';
+// import { addToWishlist, removeFromWishlist } from '../../store/actions'
 import styles from './MovieCard.module.css';
 
 // Hardcode API constant

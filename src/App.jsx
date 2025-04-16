@@ -1,8 +1,9 @@
 // src/App.jsx
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import { Routes, Route } from "react-router-dom";
 import React from 'react';
 import MovieDetails from './pages/MovieDetails/MovieDetails';
+import MoviesList from './pages/MoviesList/MoviesList'
 
 const App = () => {
   const movieId =497698
@@ -12,7 +13,10 @@ const App = () => {
 
   return (
     <div className="App">
-      <MovieDetails movieId={movieId} />
+    <Routes>
+      <Route path="/" element={<MoviesList />} />
+      <Route path="/movie/:id" element={<MovieDetails />} />
+    </Routes>
     </div>
   );
 };
