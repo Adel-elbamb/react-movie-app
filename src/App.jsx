@@ -1,16 +1,18 @@
-import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router";
-import MoviesWishlist from "./pages/MoviesWishlist";
-import TVshowswishlist from "./pages/TVshowswishlist";
+import { lazy } from "react";
+import HeaderLayout from "./components/HeaderLayout";
+
+const MoviesWishlist = lazy(() => import("./pages/MoviesWishlist"));
+const TVshowswishlist = lazy(() => import("./pages/TVshowsWishlist"));
 
 function App() {
   return (
-    
     <BrowserRouter>
-      <Navbar />
       <Routes>
-        <Route path="/movies/wishlist" element={<MoviesWishlist/>}></Route>
-        <Route path="/tv/wishlist" element={<TVshowswishlist/>}></Route>
+        <Route element={<HeaderLayout />}>
+          <Route path="/movies/wishlist" element={<MoviesWishlist />}></Route>
+          <Route path="/tv/wishlist" element={<TVshowswishlist />}></Route>
+        </Route>
       </Routes>
     </BrowserRouter>
   );

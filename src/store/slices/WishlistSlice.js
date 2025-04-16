@@ -15,8 +15,6 @@ const wishlistSlice = createSlice({
       state.value = state.value.filter(
         (movie) => movie.id != action.payload.id
       );
-      // const index = state.value.findIndex(item => action.payload.id == item.id)
-      // state.value.splice(index, 1);
     },
     deleteAllFromWishlist: (state) => {
       state.value = [];

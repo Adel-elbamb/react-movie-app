@@ -35,7 +35,7 @@ export default function Navbar() {
           >
             <ul className="navbar-nav ms-auto me-4">
               <li className="nav-item mx-1">
-                <NavLink className="nav-link fw-semibold " to="/movies" end>
+                <NavLink className="nav-link fw-semibold " to="/" end>
                   Movies
                 </NavLink>
               </li>
@@ -54,7 +54,7 @@ export default function Navbar() {
                 >
                   <i className="fa-solid fa-heart me-1 fs-5"></i> Wishlist
                 </a>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu p-2">
                   <NavLink
                     className="nav-link fw-semibold"
                     to="/movies/wishlist"

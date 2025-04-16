@@ -11,12 +11,6 @@ export default function MoviesWishlist() {
   );
   const dispatch = useDispatch();
 
-  const [Expanded, SetExpanded] = useState(null);
-
-  const changeExpanded = (_id) => {
-    SetExpanded((prevExpanded) => (prevExpanded == _id ? null : _id));
-  };
-
   return (
     <>
       <h4 className="mx-5 my-4">Movies Wishlist</h4>
@@ -36,7 +30,7 @@ export default function MoviesWishlist() {
                 No Movies in wishlist
               </p>
               <NavLink
-                to={"/movies"}
+                to={"/"}
                 className={`text-dark text-center w-25 my-3 ${styles.button}`}
               >
                 Back to Home
@@ -50,7 +44,9 @@ export default function MoviesWishlist() {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-lg-4 col-md-4 d-sm-block">
                       <img
-                        src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`}
+                        src={`${import.meta.env.VITE_TMDB_IMG_URL}${
+                          movie.poster_path
+                        }`}
                         className={`rounded-5 img-fluid card-img-top ${styles.image}`}
                         alt="Movie Image"
                       />
@@ -78,17 +74,9 @@ export default function MoviesWishlist() {
                         />
                         {movie.vote_count}
                       </div>
-                      <p className="card-text">
-                        {Expanded == movie.id
-                          ? `${movie.overview}`
-                          : `${movie.overview.substring(0, 100)}...`}
-                      </p>
-                      <button
-                        className={`${styles.button} m-auto`}
-                        onClick={() => changeExpanded(movie.id)}
-                      >
-                        {Expanded == movie.id ? "Show Less" : "Show More"}
-                      </button>
+                      <div className={`card-text ${styles.scrollable}`}>
+                        {movie.overview}
+                      </div>
                     </div>
                   </div>
                 </div>

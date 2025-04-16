@@ -10,11 +10,6 @@ export default function TVshowswishlist() {
     state.wishlist.value.filter((item) => item.type == "show")
   );
   const dispatch = useDispatch();
-  const [Expanded, SetExpanded] = useState(false);
-
-  const changeExpanded = (_id) => {
-    SetExpanded((prevExpanded) => (prevExpanded == _id ? null : _id));
-  };
 
   return (
     <>
@@ -49,7 +44,9 @@ export default function TVshowswishlist() {
                   <div className="row justify-content-center align-items-center">
                     <div className="col-lg-4 col-md-4 d-sm-block">
                       <img
-                        src={`https://image.tmdb.org/t/p/w200${show.poster_path}`}
+                        src={`${import.meta.env.VITE_TMDB_IMG_URL}${
+                          show.poster_path
+                        }`}
                         className={`rounded-5 img-fluid card-img-top ${styles.image}`}
                         alt="Show Image"
                       />
@@ -77,17 +74,9 @@ export default function TVshowswishlist() {
                         />
                         {show.vote_count}
                       </div>
-                      <p className="card-text">
-                        {Expanded == show.id
-                          ? `${show.overview}`
-                          : `${show.overview.substring(0, 100)}...`}
-                      </p>
-                      <button
-                        className={`${styles.button} m-auto`}
-                        onClick={() => changeExpanded(show.id)}
-                      >
-                        {Expanded == show.id ? "Show Less" : "Show More"}
-                      </button>
+                      <div className={`card-text ${styles.scrollable}`}>
+                        {show.overview}
+                      </div>
                     </div>
                   </div>
                 </div>

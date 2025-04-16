@@ -25,3 +25,8 @@
   color: #ffe353;
   scale: 1.5;
 }
+
+.scrollable {
+  overflow-y: scroll;
+  height: 120px;
+}
