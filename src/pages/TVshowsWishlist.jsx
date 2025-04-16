@@ -35,7 +35,7 @@ export default function TVshowswishlist() {
                 No TV Shows in wishlist
               </p>
               <NavLink
-                to={"/"}
+                to={"/tv"}
                 className={`text-dark text-center w-25 my-3 ${styles.button}`}
               >
                 Back to Home
