@@ -4,21 +4,23 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import axiosInstance from "../apis/config";
 import { useDispatch, useSelector } from "react-redux";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import styles from "./TVShows.module.css";
+import { Rating } from "primereact/rating";
 import {
   addToWishlist,
   removeFromWishlsit,
 } from "../store/slices/WishListSlice";
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router";
-// import Form from "react-bootstrap/Form";
-// import { FaSearch } from "react-icons/fa";
 
 export default function TVShows() {
   const [tvShows, setTVShows] = useState([]);
   const Wishlist = useSelector((state) =>
     state.wishlist.value.filter((item) => item.type == "show")
   );
-  // const tvWatchList = useSelector((state) => state.tvShowsList);
+
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState("");
   const [query, setQuery] = useState("");
@@ -34,14 +36,11 @@ export default function TVShows() {
       })
       .then((res) => {
         setTVShows(res.data.results);
+        console.log(res.data.results);
         setTotalPages(res.data.total_pages);
       })
       .catch((err) => console.log(err));
   }, [page]);
-
-  // const handleStoreList = (id) => {
-  //   dispatch(toggleTVFromWatch(id));
-  // };
 
   const handleViewDetails = (id) => {
     navigate(`/tvShowDetails/${id}`);
@@ -75,22 +74,46 @@ export default function TVShows() {
         </button>
       </form>
       <Row xs={1} md={4} lg={5} className="g-4">
-        {tvShows.map((show, idx) => (
-          <Col key={idx}>
-            <Card className="shadow h-100">
-              <Card.Img
-                variant="top"
-                src={`${import.meta.env.VITE_TMDB_IMG_URL}${show.poster_path}`}
-              />
+        {tvShows.map((show) => (
+          <Col key={show.id} className="mb-4">
+            <Card className={`${styles.movieCard} shadow-sm h-100`}>
+              <div className={styles.posterWrapper}>
+                <Card.Img
+                  variant="top"
+                  src={`https://image.tmdb.org/t/p/w500/${show.poster_path}`}
+                  alt={show.title}
+                  className={styles.cardImg}
+                />
+                <div className={styles.ratingCircle}>
+                  <CircularProgressbar
+                    value={show.vote_average * 10}
+                    text={`${Math.round(show.vote_average * 10)}%`}
+                    styles={buildStyles({
+                      textSize: "30px",
+                      textColor: "#fff",
+                      pathColor: "#21d07a",
+                      trailColor: "#204529",
+                    })}
+                  />
+                </div>
+              </div>
               <Card.Body>
                 <Card.Title
-                  className="fs-6 fw-bold"
+                  className="fs-6 mt-3"
                   onClick={() => handleViewDetails(show.id)}
                 >
-                  <a>{show.name}</a>
+                  {show.name.split(" ").slice(0, 3).join(" ")}
                 </Card.Title>
-                <Card.Text className="text-muted">
-                  {show.first_air_date}
+
+                <Rating
+                  className={`${styles.rating} text-warning my-1`}
+                  value={show.vote_average / 2}
+                  readOnly
+                  cancel={false}
+                />
+
+                <Card.Text className="text-muted ">
+                  <span className="d-block mb-1">{show.first_air_date}</span>
                   {Wishlist.find((item) => item.id == show.id) ? (
                     <i
                       className=" bi d-flex bi-heart-fill text-warning"
@@ -104,14 +127,6 @@ export default function TVShows() {
                       className="bi d-flex bi-heart text-warning"
                     ></i>
                   )}
-                  {/* <i
-                    className={`bi d-flex ${
-                      tvWatchList.includes(show.id)
-                        ? "bi-heart-fill"
-                        : "bi-heart"
-                    } text-warning d-inline-block`}
-                    onClick={() => handleStoreList(show.id)}
-                  ></i> */}
                 </Card.Text>
               </Card.Body>
             </Card>
