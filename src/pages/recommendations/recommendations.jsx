@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import { Card, Row, Col } from 'react-bootstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import styles from './Recommendations.module.css';
 
-const Recommendations = ({ movieId }) => {
+const Recommendations = () => {
+  const {id} = useParams();
   const [recommended, setRecommended] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}/recommendations?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
+      .get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
       .then(res => setRecommended(res.data.results))
-      .catch(err => console.error('error', err));
-  }, [movieId]);
+      .catch(err => console.error('Error fetching recommendations', err));
+  }, [id]);
 
   return (
     <div className="container my-4">
@@ -43,7 +45,9 @@ const Recommendations = ({ movieId }) => {
                 </div>
               </div>
               <Card.Body>
-                <Card.Title className="fs-6">{movie.title.split(" ").slice(0,3).join(" ")}</Card.Title>
+                <Card.Title className="fs-6">
+                  {movie.title.split(' ').slice(0, 3).join(' ')}
+                </Card.Title>
                 <Card.Text className="text-muted">
                   {new Date(movie.release_date).toLocaleDateString('en-US', {
                     month: 'short',
