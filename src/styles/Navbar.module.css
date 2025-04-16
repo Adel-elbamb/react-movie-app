@@ -1,0 +1,31 @@
+.navbar {
+  background-color: #ffe353;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.collapse {
+  background-color: #ffe353;
+}
+
+.language {
+  background-color: #ffe353;
+  color: #3c3c3c;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.language:hover {
+  color: #000;
+}
+
+.language option {
+  background-color: #ffffff;
+  color: #000;
+}
