@@ -60,4 +60,4 @@ const Recommendations = ({ movieId }) => {
   );
 };
 
-export default Recommendations;
+// export default Recommendations;
