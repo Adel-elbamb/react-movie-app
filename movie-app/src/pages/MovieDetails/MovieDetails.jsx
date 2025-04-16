@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
+
 import Recommendations from '../recommendations/recommendations';
 import Reviews from '../reviews/reviews';
 import { Rating } from 'primereact/rating';
@@ -8,15 +10,17 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import styles from "./MovieDetails.module.css";
 
-const MovieDetails = ({ movieId }) => {
+const MovieDetails = () => {
+  const { id } = useParams(); 
   const [movie, setMovie] = useState(null);
 
   useEffect(() => {
     axios
-      .get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
+      .get(`https://api.themoviedb.org/3/movie/${id}?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
       .then(result => setMovie(result.data))
       .catch(error => console.error("error", error));
-  }, [movieId]);
+  }, [id]);
+  
 
   return (
     <div className={styles.container}>
@@ -70,8 +74,8 @@ const MovieDetails = ({ movieId }) => {
         </div>
       )}
 
-      <Reviews movieId={movieId} />
-      <Recommendations movieId={movieId} />
+      <Reviews movieId={id} />
+      <Recommendations movieId={id} />
     </div>
   );
 };
