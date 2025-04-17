@@ -1,14 +1,16 @@
+
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import axiosInstance from '../../apis/config'; // Adjust the path to where axiosInstance is located
 import styles from './Reviews.module.css';
 
 const Reviews = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [reviews, setReviews] = useState([]);
-  useEffect(()=> {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${id}/reviews?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/movie/${id}/reviews`)
       .then(res => setReviews(res.data.results))
       .catch(err => console.error('Error fetching reviews', err));
   }, [id]);
@@ -36,8 +38,6 @@ const Reviews = () => {
           </div>
         </div>
       ))}
-
-      
     </div>
   );
 };

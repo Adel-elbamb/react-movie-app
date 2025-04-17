@@ -1,21 +1,20 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
-import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
-import { FaHeart } from 'react-icons/fa';
 
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Card } from "react-bootstrap";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import { FaHeart } from "react-icons/fa";
 import {
   addToWishlist,
   removeFromWishlsit,
-} from '../../store/slices/WishlistSlice';
-
-import 'react-circular-progressbar/dist/styles.css';
-import styles from './MovieCard.module.css';
+} from "../../store/slices/WishListSlice";
+import "react-circular-progressbar/dist/styles.css";
+import styles from "./MovieCard.module.css";
 
 const MovieCard = ({ movie }) => {
   const dispatch = useDispatch();
-  const wishlist = useSelector((state) => state.wishlist.value);
+  const wishlist = useSelector((state) => state.wishlist.value || []);
 
   const isLiked = wishlist.some((item) => item.id === movie.id);
 
@@ -24,12 +23,15 @@ const MovieCard = ({ movie }) => {
     if (isLiked) {
       dispatch(removeFromWishlsit(movie));
     } else {
-      dispatch(addToWishlist(movie));
+      dispatch(addToWishlist({ ...movie, type: "movie" }));
     }
   };
 
   return (
-    <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Link
+      to={`/movie/${movie.id}`}
+      style={{ textDecoration: "none", color: "inherit" }}
+    >
       <Card className={`${styles.movieCard} shadow-sm`}>
         <div className={styles.posterWrapper}>
           <Card.Img
@@ -43,29 +45,28 @@ const MovieCard = ({ movie }) => {
               value={movie.vote_average * 10}
               text={`${Math.round(movie.vote_average * 10)}%`}
               styles={buildStyles({
-                textSize: '30px',
-                textColor: '#fff',
-                pathColor: '#21d07a',
-                trailColor: '#204529',
+                textSize: "30px",
+                textColor: "#fff",
+                pathColor: "#21d07a",
+                trailColor: "#204529",
               })}
             />
           </div>
-
           <FaHeart
-            className={`${styles.heartIcon} ${isLiked ? styles.liked : ''}`}
+            className={`${styles.heartIcon} ${isLiked ? styles.liked : ""}`}
             onClick={handleLike}
+            aria-label={isLiked ? "Remove from wishlist" : "Add to wishlist"}
           />
         </div>
-
         <Card.Body>
           <Card.Title className={`fs-6 ${styles.head}`}>
-            {movie.title.split(' ').slice(0, 3).join(' ')}
+            {movie.title.split(" ").slice(0, 3).join(" ")}
           </Card.Title>
           <Card.Text className="text-muted">
-            {new Date(movie.release_date).toLocaleDateString('en-US', {
-              month: 'short',
-              day: '2-digit',
-              year: 'numeric',
+            {new Date(movie.release_date).toLocaleDateString("en-US", {
+              month: "short",
+              day: "2-digit",
+              year: "numeric",
             })}
           </Card.Text>
         </Card.Body>
@@ -75,4 +76,3 @@ const MovieCard = ({ movie }) => {
 };
 
 export default MovieCard;
-

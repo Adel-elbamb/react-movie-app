@@ -6,7 +6,7 @@ body {
 
 .movieCard {
   border: none;
-  /* width: 300px; */
+  height: 420px;
   border-radius: 15px;
   overflow: hidden;
   transition: transform 0.3s;
@@ -19,7 +19,7 @@ body {
 
 
 .cardImg {
-  height: 300px; /* increased height */
+  height: 330px; /* increased height */
   object-fit: cover;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -31,7 +31,7 @@ body {
 
 .ratingCircle {
   position: absolute;
-  bottom: -13px;
+  bottom: -11px;
   left: 10px;
   width: 50px;
   height: 50px;
@@ -48,7 +48,7 @@ body {
 /* Heart icon */
 .heartIcon {
   position: absolute;
-  top: 330px;
+  top: 390px;
   right: 10px;
   font-size: 22px;
   color: #ccc;

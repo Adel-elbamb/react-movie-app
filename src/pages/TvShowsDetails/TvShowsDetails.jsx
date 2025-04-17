@@ -1,18 +1,18 @@
+
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Rating } from 'primereact/rating';
+import axiosInstance from '../../apis/config'; // Adjust the path to where axiosInstance is located
 import styles from './TvShowsDetails.module.css';
-
-import TVShowReviews from '../TvShowsReviews/TvShowReviews'; // أو المسار الصحيح حسب مكان الملف
-
+import TVShowReviews from '../TvShowsReviews/TvShowReviews'; // Adjust the path as needed
 
 const TVShowDetails = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [tvShow, setTvShow] = useState(null);
 
   useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/tv/${id}?api_key=e0dd7fb1ec73d693e8c236644b38dc1f&language=en-US`)
+    axiosInstance
+      .get(`/tv/${id}`)
       .then(response => setTvShow(response.data))
       .catch(error => console.error("Error fetching TV show details:", error));
   }, [id]);
@@ -44,32 +44,25 @@ const TVShowDetails = () => {
             </div>
             <p className={styles.language}><strong>Language:</strong> {tvShow.original_language}</p>
             <p className={styles.seasons}><strong>Seasons:</strong> {tvShow.number_of_seasons}</p>
-            
-             
-              <div className={styles.production}>
+            <div className={styles.production}>
               <strong>Production Companies:</strong>
               <div className={styles.productionList}>
                 {tvShow.production_companies.map(company => (
-                  <div key={company.id} className={styles.company}>
-                    <img
-                      src={`https://image.tmdb.org/t/p/w200/${company.logo_path}`}
-                     alt={company.name}
-                    />
-                   
-                  </div>
+                  company.logo_path && (
+                    <div key={company.id} className={styles.company}>
+                      <img
+                        src={`https://image.tmdb.org/t/p/w200/${company.logo_path}`}
+                        alt={company.name}
+                      />
+                    </div>
+                  )
                 ))}
               </div>
             </div>
           </div>
-
-
-            
-
         </div>
       )}
-
       <TVShowReviews />
-
     </div>
   );
 };

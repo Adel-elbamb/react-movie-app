@@ -1,18 +1,19 @@
+
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { Card, Row, Col } from 'react-bootstrap';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import axiosInstance from '../../apis/config'; // Adjust the path to where axiosInstance is located
 import styles from './Recommendations.module.css';
 
 const Recommendations = () => {
-  const {id} = useParams();
+  const { id } = useParams();
   const [recommended, setRecommended] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=e0dd7fb1ec73d693e8c236644b38dc1f`)
+    axiosInstance
+      .get(`/movie/${id}/recommendations`)
       .then(res => setRecommended(res.data.results))
       .catch(err => console.error('Error fetching recommendations', err));
   }, [id]);
