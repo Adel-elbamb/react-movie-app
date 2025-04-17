@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import axios from "axios";
-
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_MOVIE_APP_BASE_URL,
-  params: {
-    api_key: import.meta.env.VITE_TMDB_API_KEY,
-  },
-});
-
-export default axiosInstance;
-=======
 import axios from "axios";
 import { store } from "../store/storeLanguage"; // Adjust path to your store file
 
@@ -37,4 +25,3 @@ axiosInstance.interceptors.request.use((config) => {
 });
 
 export default axiosInstance;
->>>>>>> ayaayman
