@@ -1,30 +1,31 @@
+// src/App.jsx
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Navbar from "./components/Navbar";
-import "bootstrap/dist/css/bootstrap.min.css";
-import SearchResult from "./pages/searchPage/SearchResults";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import React from 'react';
 
+// import MovieDetails from './pages/MovieDetails/MovieDetails';
+// import MoviesList from './pages/MoviesList/MoviesList'
+// import TVShowDetails from './pages/TvShowsDetails/TvShowsDetails';
 import { lazy } from "react";
+ 
+const MovieDetails = lazy(() => import('./pages/MovieDetails/MovieDetails'));
+const MoviesList = lazy(() => import('./pages/MoviesList/MoviesList'));
+const TVShowDetails = lazy(() => import('./pages/TvShowsDetails/TvShowsDetails'));
 
-const TVShows = lazy(() => import("./pages/TV Shows"));
-const NotFound = lazy(() => import("./pages/NotFound"));
-
-function App() {
-  const { language } = useSelector((state) => state.languages);
-  const direction = language === "ar" ? "rtl" : "ltr";
-
+ 
+const App = () => {
   return (
-    <div className={direction === "rtl" ? "rtl" : "ltr"}>
-      <Router>
-        <Navbar />
-        <Routes>
-          <Route path="/tv" element={<TVShows />} />
-          <Route path="/search" element={<SearchResult/>} /> 
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Router>
-    </div>
+   <>
+   
+   <Router>
+       <Routes>
+       <Route path="/" element={<MoviesList/>} />
+       <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/tv/:id" element={<TVShowDetails />} />
+       </Routes>
+    </Router>
+   </>
   );
-}
+};
 
 export default App;
