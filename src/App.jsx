@@ -1,4 +1,3 @@
-import "./App.css";
 // import { BrowserRouter, Route, Routes } from "react-router";
 import HeaderLayout from "./components/HeaderLayout";
 import { lazy } from "react";
@@ -7,8 +6,9 @@ import { useSelector } from "react-redux";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SearchResult from "./pages/searchPage/SearchResults";
 import React from "react";
-import Navbar from "./components/Navbar";
+// import NavbarComp from "./components/NavbarComp";
 import  styles from './styles/Navbar.module.css'
+// import NavbarComp from "./components/NavbarComp";
 const TVShows = lazy(() => import("./pages/TV Shows"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const MoviesWishlist = lazy(() => import("./pages/MoviesWishlist"));
@@ -27,9 +27,9 @@ function App() {
     
     <div className={direction}>
       <Router>
-        <Navbar />
+        {/* <NavbarComp /> */}
         <Routes>
-          {/* <Route element={<HeaderLayout />}> */}
+          <Route element={<HeaderLayout />}>
             <Route path="/tv" element={<TVShows />} />
             <Route path="/movies/wishlist" element={<MoviesWishlist />}></Route>
             <Route path="/tv/wishlist" element={<TVshowswishlist />}></Route>
@@ -37,7 +37,7 @@ function App() {
             <Route path="/" element={<MoviesList />} />
             <Route path="/movie/:id" element={<MovieDetails />} />
             <Route path="/tv/:id" element={<TVShowDetails />} />
-          {/* </Route> */}
+          </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>

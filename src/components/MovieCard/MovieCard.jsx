@@ -8,7 +8,7 @@ import { FaHeart } from "react-icons/fa";
 import {
   addToWishlist,
   removeFromWishlsit,
-} from "../../store/slices/WishListSlice";
+} from "../../store/slices/WishlistSlice";
 import "react-circular-progressbar/dist/styles.css";
 import styles from "./MovieCard.module.css";
 
@@ -49,6 +49,7 @@ const MovieCard = ({ movie }) => {
                 textColor: "#fff",
                 pathColor: "#21d07a",
                 trailColor: "#204529",
+                zIndex : '1'
               })}
             />
           </div>

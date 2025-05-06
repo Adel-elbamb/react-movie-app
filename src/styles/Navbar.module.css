@@ -14,14 +14,19 @@
   align-items: center;
   position: sticky;
   top: 0;
-  z-index: 1;
+  z-index: 4000;
 }
 
 .collapse {
   background-color: #ffe353;
 }
 
-.languageSelect {
+.dropdownActive:active {
+  background-color: rgb(239, 239, 239) !important;
+  color: #000000 !important;
+}
+
+/* .languageSelect {
   width: 110px;
   background-color: #ffe353;
   color: #212529;
@@ -52,4 +57,4 @@
 
 .languageSelect::-ms-expand {
   display: none;
-}
+} */

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Rating } from "primereact/rating";
 import styles from "../styles/Wishlist.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromWishlsit } from "../store/slices/WishListSlice";
+import { removeFromWishlsit } from "../store/slices/WishlistSlice";
 import { NavLink } from "react-router";
 
 export default function MoviesWishlist() {
@@ -74,7 +74,7 @@ export default function MoviesWishlist() {
                       <div className="py-1">
                         <Rating
                           value={Math.round(movie.vote_average / 2)}
-                          className={`d-inline-block ps-3 pe-4 ${styles.rating}`}
+                          className={`d-inline-block ps-4 pe-5 ${styles.rating}`}
                           cancel={false}
                         />
                         {movie.vote_count}
